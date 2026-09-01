@@ -57,3 +57,13 @@ body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; te
 @keyframes state-enter { from { opacity:0; transform:translateY(8px) scale(.99) } to { opacity:1; transform:translateY(0) scale(1) } }
 @keyframes success-pop { from { opacity:0; transform:scale(.72) } to { opacity:1; transform:scale(1) } }
 @media(prefers-reduced-motion:reduce) { .tool-card { animation:none; } .tool-card:nth-child(n) { animation-delay:0s; } }
+
+.tool-symbol { position:relative; display:inline-block; width:30px; height:30px; color:var(--symbol-accent); font-weight:800; line-height:1; }
+.symbol-tile { position:absolute; display:grid; place-items:center; border-radius:4px; font-size:10px; letter-spacing:-.05em; }
+.symbol-back { width:19px; height:19px; left:0; top:0; color:color-mix(in srgb,var(--symbol-accent) 85%,white); background:color-mix(in srgb,var(--symbol-accent) 25%,white); font-size:14px; }
+.symbol-front { width:22px; height:25px; right:0; bottom:0; color:white; background:color-mix(in srgb,var(--symbol-accent) 82%,#334155); box-shadow:0 3px 6px color-mix(in srgb,var(--symbol-accent) 22%,transparent); }
+.tool-symbol-merge .symbol-front,.tool-symbol-split .symbol-front,.tool-symbol-compress .symbol-front { font-size:15px; }
+.tool-symbol-compress .symbol-front { background:#83b95b; }.tool-symbol-merge .symbol-front,.tool-symbol-split .symbol-front { background:#ef765f; }
+.tool-symbol-jpg .symbol-front { font-size:8px; background:#d6bd1d; }.tool-symbol-page { transform:scale(1.35); } .tool-symbol-word .symbol-front { background:#5f83c8; }
+.tool-symbol-page .symbol-tile { border-radius:5px; }
+
