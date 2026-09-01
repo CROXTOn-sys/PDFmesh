@@ -3,8 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'DocFlow — Simple PDF tools for everyday work',
-  description: 'Convert, organize, and compress your documents in seconds with DocFlow.',
+  title: 'PDFmesh — Simple PDF tools for everyday work',
+  description: 'Convert, organize, and compress your documents in seconds with PDFmesh.',
   generator: 'v0.app',
   icons: {
     icon: [
