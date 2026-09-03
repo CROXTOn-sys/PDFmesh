@@ -1,0 +1,3 @@
+# PDF -> DOCX conversion engine.
+# Installed directly from the pinned GitHub source that was verified to work.
+pdf2docx-plus @ git+https://github.com/mithunvoe/pdf2docx-plus.git

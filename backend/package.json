@@ -1,0 +1,24 @@
+{
+  "name": "pdfmesh-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PDFmesh backend API — PDF to DOCX conversion using pdf2docx-plus",
+  "type": "commonjs",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^2.3.0"
+  },
+  "overrides": {
+    "qs": "^6.15.4"
+  }
+}
