@@ -67,3 +67,7 @@ body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; te
 .tool-symbol-jpg .symbol-front { font-size:8px; background:#d6bd1d; }.tool-symbol-page { transform:scale(1.35); } .tool-symbol-word .symbol-front { background:#5f83c8; }
 .tool-symbol-page .symbol-tile { border-radius:5px; }
 
+
+.workspace-top-actions { display:flex; gap:10px; align-items:center; }
+.add-more-button { cursor:pointer; }
+.add-more-button input { display:none; }
