@@ -2,7 +2,7 @@
   "name": "pdfmesh-backend",
   "version": "1.0.0",
   "private": true,
-  "description": "PDFmesh backend API — PDF to DOCX conversion using pdf2docx-plus",
+  "description": "PDFmesh backend API — PDF to DOCX conversion (dynamic layout reconstruction primary, pdf2docx-plus + LibreOffice fallback)",
   "type": "commonjs",
   "main": "src/server.js",
   "scripts": {

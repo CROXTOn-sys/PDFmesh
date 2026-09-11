@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const config = require('./config');
 const pdfToDocxRoutes = require('./routes/pdfToDocxRoutes');
+const pdfToolsRoutes = require('./routes/pdfToolsRoutes');
 
 // Ensure the temp directory exists on boot.
 fs.mkdirSync(config.tempDir, { recursive: true });
@@ -25,6 +26,7 @@ app.get('/health', (req, res) => {
 
 // API routes.
 app.use('/api', pdfToDocxRoutes);
+app.use('/api', pdfToolsRoutes);
 
 // 404 for anything else.
 app.use((req, res) => {

@@ -1,3 +1,22 @@
-# PDF -> DOCX conversion engine.
-# Installed directly from the pinned GitHub source that was verified to work.
+# PDFmesh conversion engine dependencies (install into backend/python/venv).
+
+# Tier 1 (English/mixed): dynamic layout reconstruction.
+#   pdf_analyzer.py uses PyMuPDF (fitz) for geometry; docx_builder.py uses
+#   python-docx for generation.
+PyMuPDF
+python-docx
+
+# Tier 2 (English/mixed) and Indic fallback: pdf2docx-plus (layout/tables/images).
+# Installed from the pinned GitHub source that was verified to work.
 pdf2docx-plus @ git+https://github.com/mithunvoe/pdf2docx-plus.git
+
+# Pillow + numpy: used by the visual_compare.py development/regression tool
+# (render PDF vs generated DOCX to PNG and diff). Not required for production
+# conversion, but small and useful for validating layout changes.
+Pillow
+numpy
+
+# NOTE: LibreOffice is ALSO required as a system package (not pip). It is the
+# last-resort fallback, the primary engine for Indic-language PDFs, and is used
+# by visual_compare.py to render the generated DOCX to PDF.
+# See backend/README.md for the system install + font commands.

@@ -3,3 +3,4 @@ python/venv/
 temp/
 .env
 *.log
+.env.example

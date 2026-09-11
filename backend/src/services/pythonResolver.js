@@ -32,8 +32,9 @@ function resolvePythonBin() {
   }
 
   throw new Error(
-    'Python virtual environment not found. Create it at backend/python/venv ' +
-      'and install pdf2docx-plus (see backend README).'
+    'Python interpreter not found. Create the virtual environment at ' +
+      'backend/python/venv, or set PYTHON_BIN (see backend README). The ' +
+      'converter uses only the Python standard library plus system LibreOffice.'
   );
 }
 
