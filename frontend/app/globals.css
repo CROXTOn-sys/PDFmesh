@@ -79,3 +79,5 @@ body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; te
 .state-card .soon-badge { margin-bottom:14px; }
 
 .file-count { display:inline-block; margin-top:6px; font-size:13px; font-weight:700; color:var(--primary-hover); background:#e9fbfb; padding:3px 10px; border-radius:999px; }
+
+.state-note { margin:4px 0 4px; font-size:13px; color:var(--muted); background:#fff7ed; border:1px solid #fed7aa; padding:6px 12px; border-radius:8px; display:inline-block; }
