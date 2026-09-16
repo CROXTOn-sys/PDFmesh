@@ -81,3 +81,25 @@ body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; te
 .file-count { display:inline-block; margin-top:6px; font-size:13px; font-weight:700; color:var(--primary-hover); background:#e9fbfb; padding:3px 10px; border-radius:999px; }
 
 .state-note { margin:4px 0 4px; font-size:13px; color:var(--muted); background:#fff7ed; border:1px solid #fed7aa; padding:6px 12px; border-radius:8px; display:inline-block; }
+
+.upload-zone.is-loading { cursor:progress; pointer-events:none; }
+.button-loading { opacity:.85; pointer-events:none; display:inline-flex; align-items:center; gap:8px; }
+.btn-spinner { width:15px; height:15px; border:2px solid rgba(255,255,255,.45); border-top-color:#fff; border-radius:50%; display:inline-block; animation:spin .7s linear infinite; }
+
+/* Toast notifications */
+.toast-viewport { position:fixed; top:18px; right:18px; z-index:1000; display:flex; flex-direction:column; gap:10px; max-width:min(92vw,380px); }
+.toast { display:flex; align-items:flex-start; gap:10px; background:#fff; border:1px solid var(--border); border-left-width:4px; border-radius:10px; padding:12px 14px; box-shadow:0 10px 30px rgba(16,24,39,.12); animation:toast-in .22s ease both; }
+.toast-message { flex:1; font-size:13px; line-height:1.35; color:var(--ink); }
+.toast-icon { display:grid; place-items:center; width:22px; height:22px; border-radius:50%; flex-shrink:0; }
+.toast-close { border:0; background:none; color:#94a3b8; cursor:pointer; padding:0; display:grid; place-items:center; flex-shrink:0; }
+.toast-close:hover { color:#64748b; }
+.toast-success { border-left-color:#34c6a3; }
+.toast-success .toast-icon { color:#0f9d78; background:#e6faf3; }
+.toast-error { border-left-color:#e2556e; }
+.toast-error .toast-icon { color:#d34e69; background:#fff0f3; }
+.toast-warning { border-left-color:#e6a642; }
+.toast-warning .toast-icon { color:#c2831f; background:#fff7ed; }
+.toast-info { border-left-color:#3568e8; }
+.toast-info .toast-icon { color:#2f5fd0; background:#eef3ff; }
+@keyframes toast-in { from { opacity:0; transform:translateX(16px); } to { opacity:1; transform:translateX(0); } }
+@media(max-width:540px) { .toast-viewport { top:auto; bottom:14px; right:14px; left:14px; max-width:none; } }
