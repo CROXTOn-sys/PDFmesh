@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, Check, ChevronDown, FileImage, FileText, Files, Gauge, GripVertical, Layers, Menu, ShieldCheck, Sparkles, Upload, X, Zap } from 'lucide-react'
 import { useToast } from '@/components/toast/toast'
 
@@ -41,8 +41,14 @@ const configs: Record<ToolKey,{title:string; description:string; accept:string; 
 function FileList({ files, remove, reorder }: { files: File[]; remove:(i:number)=>void; reorder:(from:number,to:number)=>void }) { const [dragged,setDragged]=useState<number|null>(null); return <div className="file-list">{files.map((file,i) => <div className={dragged===i ? 'file-row is-dragging' : 'file-row'} draggable onDragStart={e => { setDragged(i); e.dataTransfer.effectAllowed='move'; e.dataTransfer.setData('text/plain',String(i)) }} onDragEnd={() => setDragged(null)} onDragOver={e => e.preventDefault()} onDrop={e => { e.preventDefault(); reorder(Number(e.dataTransfer.getData('text/plain')),i); setDragged(null) }} key={`${file.name}-${i}`}><GripVertical className="grip" size={17}/><div className="file-badge"><FileText size={18}/></div><div className="file-meta"><strong>{file.name}</strong><span>{(file.size/1024/1024).toFixed(2)} MB</span></div><button className="icon-button" aria-label={`Remove ${file.name}`} onClick={() => remove(i)}><X size={17}/></button></div>)}</div> }
 function UploadZone({ select, multiple, accept, loading }: {select:(files:File[])=>void; multiple?:boolean; accept:string; loading?:boolean}) { const [dragging,setDragging]=useState(false); return <label className={`${dragging ? 'upload-zone is-dragging' : 'upload-zone'}${loading ? ' is-loading' : ''}`} onDragOver={e => { if(loading){ e.preventDefault(); return } e.preventDefault(); setDragging(true) }} onDragLeave={() => setDragging(false)} onDrop={e => { e.preventDefault(); if(loading) return; setDragging(false); select(Array.from(e.dataTransfer.files)) }}><input type="file" accept={accept} multiple={multiple} disabled={loading} onChange={e => select(Array.from(e.target.files || []))}/><div className="upload-icon"><Upload size={22}/></div><h3>{loading ? 'Loading your files...' : dragging ? 'Drop to add your files' : `Drag & drop your ${accept} here`}</h3><p>{loading ? 'Please wait a moment.' : dragging ? 'Release to continue' : 'or choose a file from your device'}</p><span className={`button button-primary${loading ? ' button-loading' : ''}`} aria-busy={loading || undefined}>{loading ? <><span className="btn-spinner" aria-hidden="true" />Loading...</> : `Select ${multiple ? 'files' : 'a file'}`}</span><small>Maximum file size: 50 MB</small></label> }
 function StateMessage({ type, config, reset, errorMessage, downloadUrl, downloadName, onDownload, noteMessage }: {type:'processing'|'success'|'error'; config:typeof configs[ToolKey]; reset:()=>void; errorMessage?:string; downloadUrl?:string; downloadName?:string; onDownload?:(e?:{ preventDefault:()=>void })=>void; noteMessage?:string}) { const [progress,setProgress]=useState(8); useEffect(() => { if (type !== 'processing') return; const timer=window.setInterval(() => setProgress(value => Math.min(value + 9, 92)), 420); return () => window.clearInterval(timer) }, [type]); if(type==='processing') return <div className="state-card" aria-live="polite"><div className="loader"><span /></div><h2>Processing your file...</h2><div className="progress"><span style={{ width: `${progress}%` }} /></div><strong>{progress}%</strong><p>Please wait while we prepare your document.</p></div>; if(type==='error') return <div className="state-card"><div className="state-icon error"><X size={25}/></div><h2>Something went wrong</h2><p>{errorMessage || 'Please try again or choose another file.'}</p><button className="button button-primary" onClick={reset}>Try again</button></div>; const fileName = downloadName || `document.${config.result.toLowerCase()}`; const downloadLabel = (fileName.split('.').pop() || config.result).toUpperCase(); return <div className="state-card"><div className="state-icon"><Check size={25}/></div><h2>Your file is ready!</h2><p>{fileName}</p>{noteMessage && <p className="state-note">{noteMessage}</p>}<div className="state-actions">{downloadUrl ? <a className="button button-primary" href={downloadUrl} download={fileName} onClick={onDownload}>Download {downloadLabel}</a> : <button className="button button-primary">Download {config.result}</button>}<button className="button button-secondary" onClick={reset}>Convert another file</button></div></div> }
-export function ToolPage({ toolKey }: {toolKey:ToolKey}) { const config=configs[toolKey]; const toast=useToast(); const [files,setFiles]=useState<File[]>([]); const [state,setState]=useState<'idle'|'processing'|'success'|'error'>('idle'); const [downloadUrl,setDownloadUrl]=useState<string|null>(null); const [downloadBlob,setDownloadBlob]=useState<Blob|null>(null); const [downloadName,setDownloadName]=useState<string|undefined>(undefined); const [errorMessage,setErrorMessage]=useState<string|undefined>(undefined); const [compressLevel,setCompressLevel]=useState<'extreme'|'recommended'|'less'>('recommended'); const [noteMessage,setNoteMessage]=useState<string|undefined>(undefined); const [preparing,setPreparing]=useState(false); const select=(newFiles:File[])=>{
+export function ToolPage({ toolKey }: {toolKey:ToolKey}) { const config=configs[toolKey]; const toast=useToast(); const [files,setFiles]=useState<File[]>([]); const [state,setState]=useState<'idle'|'processing'|'success'|'error'>('idle'); const [downloadUrl,setDownloadUrl]=useState<string|null>(null); const [downloadBlob,setDownloadBlob]=useState<Blob|null>(null); const [downloadName,setDownloadName]=useState<string|undefined>(undefined); const [errorMessage,setErrorMessage]=useState<string|undefined>(undefined); const [compressLevel,setCompressLevel]=useState<'extreme'|'recommended'|'less'>('recommended'); const [noteMessage,setNoteMessage]=useState<string|undefined>(undefined); const [preparing,setPreparing]=useState(false); const preparingSince=useRef(0); const select=(newFiles:File[])=>{
     if(newFiles.length===0) return;
+    // Show the loading state up-front for selections that can lag while the
+    // browser reads/renders them: several files, or one large file. Applies to
+    // every tool. Cleared once the list has rendered (see effect below).
+    const bigCount = newFiles.length + files.length >= 5;
+    const bigSingle = newFiles.some(f => f.size >= 8*1024*1024);
+    if(bigCount || bigSingle){ preparingSince.current = Date.now(); setPreparing(true); }
     // Per-tool limits (mirror the backend so users learn early, before upload).
     const maxBytes = toolKey==='jpg-to-pdf' ? 1024*1024*1024 : 50*1024*1024;
     const maxLabel = toolKey==='jpg-to-pdf' ? '1 GB' : '50 MB';
@@ -65,12 +71,26 @@ export function ToolPage({ toolKey }: {toolKey:ToolKey}) { const config=configs[
       if(prev.length < 100 && capped.length >= 100) toast.info(`Large batch (${capped.length} files) — uploading and processing may take a little while.`);
       return capped;
     });
-    // For large batches, show a loading state while the heavy file list renders.
-    const willBeLarge = sized.length + files.length > 12; if(willBeLarge) setPreparing(true);
-  }; const reset=()=>{ if(downloadUrl) URL.revokeObjectURL(downloadUrl); setDownloadUrl(null); setDownloadBlob(null); setDownloadName(undefined); setErrorMessage(undefined); setNoteMessage(undefined); setPreparing(false); setFiles([]); setState('idle') }; useEffect(() => () => { if(downloadUrl) URL.revokeObjectURL(downloadUrl) }, [downloadUrl]);
-  // Clear the "loading files" state once the file list has actually rendered.
-  // A double requestAnimationFrame waits for the browser to paint the heavy list.
-  useEffect(() => { if(!preparing) return; let raf1=0, raf2=0, t=0; if(typeof window!=='undefined' && window.requestAnimationFrame){ raf1=window.requestAnimationFrame(()=>{ raf2=window.requestAnimationFrame(()=>setPreparing(false)) }) } else { t=window.setTimeout(()=>setPreparing(false),80) as unknown as number } return () => { if(raf1) cancelAnimationFrame(raf1); if(raf2) cancelAnimationFrame(raf2); if(t) clearTimeout(t) } }, [preparing, files.length]);
+  }; const reset=()=>{ if(downloadUrl) URL.revokeObjectURL(downloadUrl); setDownloadUrl(null); setDownloadBlob(null); setDownloadName(undefined); setErrorMessage(undefined); setNoteMessage(undefined); setPreparing(false); preparingSince.current=0; setFiles([]); setState('idle') }; useEffect(() => () => { if(downloadUrl) URL.revokeObjectURL(downloadUrl) }, [downloadUrl]);
+  // Clear the "loading files" state once the file list has actually rendered AND
+  // a short minimum time has elapsed, so the loader never flashes-and-vanishes.
+  useEffect(() => {
+    if(!preparing) return;
+    const MIN_MS = 450;
+    let raf1 = 0, raf2 = 0, t = 0;
+    const finish = () => {
+      const elapsed = Date.now() - (preparingSince.current || 0);
+      const wait = Math.max(0, MIN_MS - elapsed);
+      t = window.setTimeout(() => setPreparing(false), wait) as unknown as number;
+    };
+    if(typeof window !== 'undefined' && window.requestAnimationFrame){
+      // Two frames = the browser has painted the (heavy) file list.
+      raf1 = window.requestAnimationFrame(() => { raf2 = window.requestAnimationFrame(finish); });
+    } else {
+      finish();
+    }
+    return () => { if(raf1) cancelAnimationFrame(raf1); if(raf2) cancelAnimationFrame(raf2); if(t) clearTimeout(t); };
+  }, [preparing, files.length]);
   const reorder=(from:number,to:number)=>{const next=[...files]; const [item]=next.splice(from,1); next.splice(to,0,item);setFiles(next)};
   /* Cross-platform download. Desktop keeps the standard anchor+download behavior. Mobile Safari/Chrome often ignore the download attribute on blob URLs, so we route through a programmatic anchor and fall back to opening the file on iOS. */
   const triggerDownload=(e?:{ preventDefault:()=>void })=>{ if(e) e.preventDefault(); const name=downloadName || `document.${config.result.toLowerCase()}`; const blob=downloadBlob; const href=downloadUrl; if(!href) return; const ua=typeof navigator!=='undefined' ? navigator.userAgent : ''; const isIOS=/iP(ad|hone|od)/.test(ua) || (/(Macintosh)/.test(ua) && typeof document!=='undefined' && 'ontouchend' in document); const a=document.createElement('a'); a.href=href; a.download=name; a.rel='noopener'; document.body.appendChild(a); a.click(); document.body.removeChild(a); if(isIOS && blob){ window.open(href,'_blank'); } toast.success('Your download has started.'); };
