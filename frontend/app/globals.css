@@ -147,3 +147,40 @@ body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; te
 .error-links a { color:var(--primary-hover); font-weight:600; }
 .error-digest { color:#94a3b8; font-size:12px; margin-top:20px; }
 @media(max-width:540px) { .error-actions { flex-direction:column; } .error-actions .button { width:100%; } .error-code { font-size:60px; } }
+
+/* Hero trust badges */
+.trust-badges { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:30px; }
+.trust-badge { display:flex; align-items:center; gap:10px; background:rgba(255,255,255,.72); backdrop-filter:blur(6px); border:1px solid var(--border); border-radius:12px; padding:10px 14px; box-shadow:0 4px 16px rgba(16,24,39,.05); }
+.trust-badge-icon { display:grid; place-items:center; width:30px; height:30px; border-radius:8px; flex-shrink:0; }
+.trust-badge-icon.trust-secure { color:#0f9d78; background:#e6faf3; }
+.trust-badge-icon.trust-instant { color:#c2831f; background:#fff7ed; }
+.trust-badge-icon.trust-free { color:#2f5fd0; background:#eef3ff; }
+.trust-badge-text { display:flex; flex-direction:column; text-align:left; line-height:1.25; }
+.trust-badge-text strong { font-size:13px; font-weight:700; color:var(--ink); }
+.trust-badge-text span { font-size:11px; color:var(--muted); }
+@media(max-width:540px) { .trust-badges { flex-direction:column; align-items:stretch; } .trust-badge { justify-content:flex-start; } }
+
+/* Mobile polish: compact trust badges + 2-column tool grid (CSS only) */
+@media(max-width:540px) {
+  /* Compact trust strip: 3 across, smaller, instead of 3 tall stacked cards */
+  .trust-badges { flex-direction:row; flex-wrap:wrap; gap:8px; margin-top:22px; }
+  .trust-badge { flex:1 1 0; min-width:0; flex-direction:column; align-items:center; text-align:center; gap:6px; padding:11px 8px; }
+  .trust-badge-icon { width:28px; height:28px; }
+  .trust-badge-text { align-items:center; text-align:center; }
+  .trust-badge-text strong { font-size:11.5px; }
+  .trust-badge-text span { display:none; }
+
+  /* Two tools per row so the landing page isn't one long stacked column */
+  .tool-grid { grid-template-columns:repeat(2,1fr); gap:12px; }
+  .tool-card { min-height:0; padding:16px; }
+  .tool-card .tool-card-copy p { font-size:12px; }
+
+  /* Tighter footer: two columns instead of a tall single stack */
+  .footer-grid { grid-template-columns:repeat(2,1fr); }
+  .footer-grid > div:first-child { grid-column:span 2; }
+}
+/* Very small phones: revert tools to a single column so cards aren't cramped */
+@media(max-width:360px) {
+  .tool-grid { grid-template-columns:1fr; }
+  .trust-badge-text span { display:block; }
+}
