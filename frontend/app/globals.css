@@ -184,3 +184,25 @@ body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; te
   .tool-grid { grid-template-columns:1fr; }
   .trust-badge-text span { display:block; }
 }
+
+/* Scroll smoothness: reduce expensive repaints on cards during scroll.
+   Purely performance-oriented — no visual/layout change intended. */
+.tool-card {
+  /* backdrop-filter on cards causes shimmer/jitter while scrolling and is
+     not visible over the near-opaque card background — drop it for smoothness. */
+  backdrop-filter: none;
+  /* Promote to its own GPU layer so transforms composite cleanly (no subpixel shiver). */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Isolate paint work per card so scrolling repaints less of the page. */
+  contain: paint;
+}
+/* Keep the staggered look, but composited (adds translateZ so it matches the base layer). */
+@media(min-width:801px) {
+  .tool-card:nth-child(2n) { transform: translate3d(0, 8px, 0); }
+  .tool-card:nth-child(2n):hover { transform: translate3d(0, 2px, 0); }
+  .tool-card:hover { transform: translate3d(0, -6px, 0); }
+}
+/* Smoother, momentum scrolling on touch devices. */
+html { -webkit-overflow-scrolling: touch; }
