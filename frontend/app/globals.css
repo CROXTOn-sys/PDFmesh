@@ -179,8 +179,10 @@ body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; te
   .footer-grid { grid-template-columns:repeat(2,1fr); }
   .footer-grid > div:first-child { grid-column:span 2; }
 }
-/* Very small phones: revert tools to a single column so cards aren't cramped */
-@media(max-width:360px) {
+/* Only the very smallest phones (<=330px) fall back to a single column so cards
+   are not cramped. All larger phones (incl. Galaxy A55 ~360-384px) keep the
+   compact 2-column layout with concise trust badges. */
+@media(max-width:330px) {
   .tool-grid { grid-template-columns:1fr; }
   .trust-badge-text span { display:block; }
 }
@@ -206,3 +208,8 @@ body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; te
 }
 /* Smoother, momentum scrolling on touch devices. */
 html { -webkit-overflow-scrolling: touch; }
+
+/* Navbar brand logo — transparent, tightly-cropped PNG (high-res source, stays
+   sharp when scaled down). Fixed height, auto width so it blends into the nav. */
+.brand-logo { height:52px; width:auto; display:block; object-fit:contain; }
+@media(max-width:540px) { .brand-logo { height:44px; } }
