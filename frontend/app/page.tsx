@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { HomePage } from '@/components/docflow/docflow'
 import { FAQ_ITEMS } from '@/lib/faq-data'
 
-const SITE_URL = 'https://pdfmesh.vercel.app'
+const SITE_URL = 'https://pdfkitz.vercel.app'
 
 export const metadata: Metadata = {
   title: 'PDF to Word, Merge, Compress & Convert PDF — Free Online PDF Tools',
@@ -23,7 +23,7 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'WebApplication',
-      name: 'PDFmesh',
+      name: 'PDFkitz',
       url: SITE_URL,
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'Any',

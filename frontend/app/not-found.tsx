@@ -4,7 +4,7 @@ import { Navbar, Footer } from '@/components/docflow/docflow'
 
 export const metadata: Metadata = {
   title: 'Page Not Found (404)',
-  description: 'The page you are looking for could not be found. Explore PDFmesh’s free online PDF tools instead.',
+  description: 'The page you are looking for could not be found. Explore PDFkitz’s free online PDF tools instead.',
   robots: { index: false, follow: true },
 }
 

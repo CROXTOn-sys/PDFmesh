@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import { ToolPage } from '@/components/docflow/docflow'
 
-const URL = 'https://pdfmesh.vercel.app/pdf-to-jpg'
+const URL = 'https://pdfkitz.vercel.app/pdf-to-jpg'
 
 export const metadata: Metadata = {
   title: 'PDF to JPG — Convert PDF to Images Online Free',
   description:
-    'Convert PDF to JPG online for free. Turn every page of your PDF into a high-quality JPG image, ready to share or download — fast and secure with PDFmesh.',
+    'Convert PDF to JPG online for free. Turn every page of your PDF into a high-quality JPG image, ready to share or download — fast and secure with PDFkitz.',
   keywords: ['pdf to jpg', 'pdf to image', 'pdf to png', 'convert pdf to jpg', 'pdf converter'],
   alternates: { canonical: URL },
   openGraph: {

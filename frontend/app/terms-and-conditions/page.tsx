@@ -2,17 +2,17 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Navbar, Footer } from '@/components/docflow/docflow'
 
-const URL = 'https://pdfmesh.vercel.app/terms-and-conditions'
+const URL = 'https://pdfkitz.vercel.app/terms-and-conditions'
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions — PDFmesh',
+  title: 'Terms & Conditions — PDFkitz',
   description:
-    'Read the PDFmesh Terms & Conditions covering acceptable use of our free online PDF tools, disclaimers, intellectual property, and limitations of liability.',
+    'Read the PDFkitz Terms & Conditions covering acceptable use of our free online PDF tools, disclaimers, intellectual property, and limitations of liability.',
   alternates: { canonical: URL },
   openGraph: {
     url: URL,
-    title: 'Terms & Conditions — PDFmesh',
-    description: 'The terms that govern your use of PDFmesh.',
+    title: 'Terms & Conditions — PDFkitz',
+    description: 'The terms that govern your use of PDFkitz.',
   },
 }
 
@@ -26,14 +26,14 @@ export default function TermsPage() {
           <h1>Terms &amp; Conditions</h1>
           <p className="content-meta">Last updated: September 2026</p>
           <p className="content-lead">
-            These Terms &amp; Conditions govern your use of the PDFmesh website and its online PDF
-            tools. By using PDFmesh, you agree to these terms. If you do not agree, please do not use
+            These Terms &amp; Conditions govern your use of the PDFkitz website and its online PDF
+            tools. By using PDFkitz, you agree to these terms. If you do not agree, please do not use
             the service.
           </p>
 
           <h2>Use of the service</h2>
           <p>
-            PDFmesh provides free online tools to convert, merge, split, compress, and transform PDF
+            PDFkitz provides free online tools to convert, merge, split, compress, and transform PDF
             and image files. You may use the service for lawful personal and business purposes. You
             agree not to upload content that is illegal, infringing, malicious, or that you do not
             have the right to process.
@@ -52,7 +52,7 @@ export default function TermsPage() {
             You are responsible for the files you upload and for keeping your own backups. Uploaded
             files are processed to complete your request and are removed automatically afterward, as
             described in our <Link href="/privacy-policy">Privacy Policy</Link>. Do not rely on
-            PDFmesh as a storage service.
+            PDFkitz as a storage service.
           </p>
 
           <h2>Acceptable use</h2>
@@ -64,20 +64,20 @@ export default function TermsPage() {
 
           <h2>Intellectual property</h2>
           <p>
-            The PDFmesh name, branding, website design, and software are the property of PDFmesh. You
+            The PDFkitz name, branding, website design, and software are the property of PDFkitz. You
             retain all rights to the files you upload; we claim no ownership over your content.
           </p>
 
           <h2>Limitation of liability</h2>
           <p>
-            To the fullest extent permitted by law, PDFmesh is not liable for any indirect,
+            To the fullest extent permitted by law, PDFkitz is not liable for any indirect,
             incidental, or consequential damages, or for any loss of data arising from your use of the
             service.
           </p>
 
           <h2>Changes to these terms</h2>
           <p>
-            We may update these Terms &amp; Conditions from time to time. Continued use of PDFmesh
+            We may update these Terms &amp; Conditions from time to time. Continued use of PDFkitz
             after changes are posted constitutes acceptance of the updated terms.
           </p>
 
@@ -85,7 +85,7 @@ export default function TermsPage() {
           <p>
             Questions about these terms? Reach us via the{' '}
             <Link href="/contact">Contact Us</Link> page or at{' '}
-            <a href="mailto:support@pdfmesh.app">support@pdfmesh.app</a>.
+            <a href="mailto:support@pdfkitz.app">support@pdfkitz.app</a>.
           </p>
         </div>
       </main>

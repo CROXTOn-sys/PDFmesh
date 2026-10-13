@@ -3,16 +3,16 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { ToastProvider } from '@/components/toast/toast'
 
-const SITE_URL = 'https://pdfmesh.vercel.app'
+const SITE_URL = 'https://pdfkitz.vercel.app'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'PDFmesh — Free Online PDF Converter, Merger & Editor Tools',
-    template: '%s | PDFmesh',
+    default: 'PDFkitz — Free Online PDF Converter, Merger & Editor Tools',
+    template: '%s | PDFkitz',
   },
   description:
-    'PDFmesh is a free online PDF converter and toolkit. Convert PDF to Word, merge PDF, compress PDF, JPG to PDF, PDF to JPG, split PDF, and Word to PDF — fast, secure, and completely free.',
+    'PDFkitz is a free online PDF converter and toolkit. Convert PDF to Word, merge PDF, compress PDF, JPG to PDF, PDF to JPG, split PDF, and Word to PDF — fast, secure, and completely free.',
   keywords: [
     'pdf to word',
     'pdf converter',
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     'free pdf converter',
     'online pdf tools',
   ],
-  authors: [{ name: 'PDFmesh' }],
-  creator: 'PDFmesh',
-  publisher: 'PDFmesh',
+  authors: [{ name: 'PDFkitz' }],
+  creator: 'PDFkitz',
+  publisher: 'PDFkitz',
   robots: {
     index: true,
     follow: true,
@@ -50,8 +50,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: SITE_URL,
-    siteName: 'PDFmesh',
-    title: 'PDFmesh — Free Online PDF Converter, Merger & Editor Tools',
+    siteName: 'PDFkitz',
+    title: 'PDFkitz — Free Online PDF Converter, Merger & Editor Tools',
     description:
       'Convert PDF to Word, merge PDF files, compress PDF, JPG to PDF, and more — all free, fast, and secure. No sign-up needed.',
     images: [
@@ -59,13 +59,13 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: 'PDFmesh — Free Online PDF Tools',
+        alt: 'PDFkitz — Free Online PDF Tools',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'PDFmesh — Free Online PDF Converter & Tools',
+    title: 'PDFkitz — Free Online PDF Converter & Tools',
     description:
       'Convert PDF to Word, merge PDF, compress PDF, JPG to PDF and more — free, fast, secure.',
     images: [`${SITE_URL}/og-image.png`],
@@ -75,11 +75,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/logo.png', type: 'image/png' },
-      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+      { url: '/logo.jpg', type: 'image/jpeg' },
+      { url: '/icon-192.jpg', sizes: '192x192', type: 'image/jpeg' },
+      { url: '/icon-512.jpg', sizes: '512x512', type: 'image/jpeg' },
     ],
-    apple: [{ url: '/logo.png' }],
+    apple: [{ url: '/logo.jpg' }],
   },
 }
 
