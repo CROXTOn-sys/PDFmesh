@@ -1,17 +1,17 @@
 import type { Metadata } from 'next'
 import { Navbar, Footer } from '@/components/docflow/docflow'
 
-const URL = 'https://pdfmesh.vercel.app/contact'
+const URL = 'https://pdfkitz.vercel.app/contact'
 
 export const metadata: Metadata = {
-  title: 'Contact Us — PDFmesh',
+  title: 'Contact Us — PDFkitz',
   description:
-    'Contact the PDFmesh team with questions, feedback, or support requests about our free online PDF tools such as PDF to Word, merge PDF, and compress PDF.',
+    'Contact the PDFkitz team with questions, feedback, or support requests about our free online PDF tools such as PDF to Word, merge PDF, and compress PDF.',
   alternates: { canonical: URL },
   openGraph: {
     url: URL,
-    title: 'Contact PDFmesh',
-    description: 'Get in touch with the PDFmesh team for support and feedback.',
+    title: 'Contact PDFkitz',
+    description: 'Get in touch with the PDFkitz team for support and feedback.',
   },
 }
 
@@ -24,19 +24,19 @@ export default function ContactPage() {
           <span className="eyebrow">We would love to hear from you</span>
           <h1>Contact Us</h1>
           <p className="content-lead">
-            Have a question, found a bug, or want to suggest a feature? Reach out and the PDFmesh
+            Have a question, found a bug, or want to suggest a feature? Reach out and the PDFkitz
             team will get back to you. We usually respond within 2–3 business days.
           </p>
 
           <h2>Email</h2>
           <p>
             For support, feedback, or general questions, email us at{' '}
-            <a href="mailto:support@pdfmesh.app">support@pdfmesh.app</a>.
+            <a href="mailto:support@pdfkitz.app">support@pdfkitz.app</a>.
           </p>
 
           <h2>Feedback &amp; feature requests</h2>
           <p>
-            PDFmesh is always improving. If there is a tool or option you would like to see —
+            PDFkitz is always improving. If there is a tool or option you would like to see —
             such as new file formats or editing features — let us know and we will consider it for a
             future update.
           </p>

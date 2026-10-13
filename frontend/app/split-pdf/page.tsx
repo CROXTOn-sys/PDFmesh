@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import { ToolPage } from '@/components/docflow/docflow'
 
-const URL = 'https://pdfmesh.vercel.app/split-pdf'
+const URL = 'https://pdfkitz.vercel.app/split-pdf'
 
 export const metadata: Metadata = {
   title: 'Split PDF — Extract & Separate PDF Pages Online Free',
   description:
-    'Split PDF online for free. Extract pages or divide a PDF into separate files in seconds — a fast, secure PDF splitter from PDFmesh, no sign-up required.',
+    'Split PDF online for free. Extract pages or divide a PDF into separate files in seconds — a fast, secure PDF splitter from PDFkitz, no sign-up required.',
   keywords: ['split pdf', 'separate pdf', 'extract pdf pages', 'pdf splitter', 'pdf converter'],
   alternates: { canonical: URL },
   openGraph: {
